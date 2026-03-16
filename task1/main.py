@@ -9,6 +9,11 @@ def read_file(filename):
             matrix.append(row)
     return matrix
 
+def write_file(filename, res_list):
+    with open(filename, 'w') as f:
+        for line in res_list:
+            f.write(str(line) + '\n')
+
 def find_entropy_X(matrix):
     entropy = 0
     for row in matrix:
@@ -26,17 +31,6 @@ def find_entropy_Y(matrix):
         if p > 0:
             entropy += -p * math.log2(p)
     return entropy
-
-# def find_conditional_entropy_XY(matrix):
-#     entropy = 0
-#     for j in range(len(matrix[0])):
-#         p_y = sum(matrix[i][j] for i in range(len(matrix)))
-#         for i in range(len(matrix)):
-#             p_xy = matrix[i][j]
-#             if p_xy > 0 and p_y > 0:
-#                 p_x_cond_y = p_xy / p_y
-#                 entropy += -p_xy * math.log2(p_x_cond_y)
-#     return entropy
 
 def find_joint_entropy(matrix):
     entropy = 0
@@ -58,25 +52,40 @@ def find_mutual_information(matrix):
 if __name__ == '__main__':
 
     input_matrix = read_file('input.txt')
-    # print(read_file('input.txt'))
 
     entropy_x = find_entropy_X(input_matrix)
-    print(f'H(X) = {entropy_x}')
+    str_entropy_x = f'H(X) = {entropy_x}'
+    print(str_entropy_x)
+    # print(f'H(X) = {entropy_x}')
 
     entropy_y = find_entropy_Y(input_matrix)
-    print(f'H(Y) = {entropy_y}')
-
-    # conditional_entropy_XY = find_conditional_entropy_XY(input_matrix)
-    # print(f'H(X|Y) = {conditional_entropy_XY}')
+    str_entropy_y = f'H(Y) = {entropy_y}'
+    print(str_entropy_y)
+    # print(f'H(Y) = {entropy_y}')
 
     conditional_entropy_XY = find_conditional_entropy_XY(input_matrix)
-    print(f'H(X|Y) = {conditional_entropy_XY}')
+    str_conditional_entropy_XY = f'H(X|Y) = {conditional_entropy_XY}'
+    print(str_conditional_entropy_XY)
+    # print(f'H(X|Y) = {conditional_entropy_XY}')
 
     conditional_entropy_YX = find_conditional_entropy_YX(input_matrix)
-    print(f'H(Y|X) = {conditional_entropy_YX}')
+    str_conditional_entropy_YX = f'H(Y|X) = {conditional_entropy_YX}'
+    print(str_conditional_entropy_YX)
+    # print(f'H(Y|X) = {conditional_entropy_YX}')
 
     joint_entropy = find_joint_entropy(input_matrix)
-    print(f'H(X,Y) = {joint_entropy}')
+    str_joint_entropy = f'H(X,Y) = {joint_entropy}'
+    print(str_joint_entropy)
+    # print(f'H(X,Y) = {joint_entropy}')
 
     mutual_information = find_mutual_information(input_matrix)
-    print(f'I(X,Y) = {mutual_information}')
+    str_mutual_information = f'I(X,Y) = {mutual_information}'
+    print(str_mutual_information)
+    # print(f'I(X,Y) = {mutual_information}')
+
+
+    result_list = [str_entropy_x, str_entropy_y, str_conditional_entropy_XY, str_conditional_entropy_YX, str_joint_entropy, str_mutual_information]
+    print(result_list)
+
+
+    # write_file('output.txt', result_list)
